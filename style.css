@@ -1,0 +1,635 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --header-height: 7.2rem;
+
+    /* colors */
+  --hue: 10;
+  /* HSL color mode */
+  --base-color: hsl(var(--hue) 86% 58%);
+  --base-color-second: hsl(var(--hue) 65% 88%);
+  --base-color-alt: hsl(var(--hue) 57% 53%);
+  --title-color: hsl(var(--hue) 41% 10%);
+  --text-color: hsl(0 0% 46%);
+  --text-color-light: hsl(0 0% 98%);
+  --body-color: hsl(0 0% 98%);
+
+    /* fonts */
+    --title-font-size: 3rem;
+    --subtitle-font-size: 1.6rem;
+    --title-font: 'Poppins', sans-serif;
+    --body-font: 'DM Sans', sans-serif;
+
+  font-size: 62.5%; /*resentando o tamanho da fonte para essa porcentagem posso dividir tudo por 10 e não 16=1rem*/
+}
+
+ul{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+}
+
+img{
+    width: 100%;
+    height: auto;
+}
+
+html{
+    scroll-behavior: smooth; /*deixa a rolagem suave ao clicar 
+                              em algum dos links*/
+}
+
+body {
+    font: 400 1.6rem var(--body-font);
+    color: var(--text-color);
+    background: var(--body-color);
+    -webkit-font-smoothing: antialiased;
+}
+
+.title{
+    font: 700 var(--title-font-size) var(--title-font);
+    color: var(--title-color);
+    -webkit-font-smoothing: auto;
+}
+
+#header{
+    display: flex;
+    border-bottom: 1px solid #e4e4e4;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+    background: var(--body-color);
+    top: 0;
+    left: 0;
+}
+
+#header.scroll{
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2);
+}
+
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 7.2rem;
+    width: 100%;
+}
+
+nav ul li{
+    text-align: center;
+}
+
+nav ul li a{
+    transition: color 0.2s;
+    position: relative;
+}
+
+nav ul li a:hover{
+    color: var(--base-color);
+}
+
+/* dessa forma a barrinha em baixo de cada link só aparece 
+nav ul li a:hover::after{
+    content: "";
+    width: 100%;
+    height: 2px;
+    background: var(--base-color);
+
+    position: absolute;
+    left: 0;
+    bottom: -2.4rem;
+}*/
+
+/* mas dessa forma a barrinha em baixo de cada link 
+irá aparecer de forma crescente, da esquerda para a direita*/
+nav ul li a::after{
+    content: "";
+    width: 0%;
+    height: 2px;
+    background: var(--base-color);
+
+    position: absolute;
+    left: 0;
+    bottom: -2.4rem;
+    transition: width 0.3s;
+}
+
+nav ul li a:hover::after{
+    width: 100%;
+}
+
+nav .menu{
+    opacity: 0;
+    visibility: hidden;
+    top: -20rem;
+    transition: 0.3s;
+}
+
+nav .menu ul{
+    display: none;
+}
+
+/*********** MOSTRAR O MENU **********/
+nav.show .menu{
+    opacity: 1;
+    visibility: visible;
+    background: var(--body-color);
+    height: 100vh;
+    width: 100vw;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    
+    display: grid;
+    place-content: center;
+}
+
+nav.show .menu ul {
+    display: grid;
+}
+
+nav.show ul.grid{
+    gap: 6.4rem;
+}
+
+/***** TOGLE MENU ********/
+.toggle{
+    color: var(--base-color);
+    font-size: 2.4rem;
+    cursor: pointer;
+}
+
+nav .icon-close {
+    visibility: hidden;
+    opacity: 0;
+
+    position: absolute;
+    right: 2.4rem;
+    top: -2.4rem;
+
+    transition: 0.3s;
+}
+
+nav.show div.icon-close{
+    visibility: visible;
+    opacity: 1;
+    top: 2.4rem;
+}
+
+.logo{
+    font: 700 2rem var(--title-font);
+    color: var(--title-color);
+}
+
+.logo span{
+    color: var(--base-color);
+}
+
+.logo-alt span{
+    color: var(--text-color-light);
+}
+
+main{
+    margin-top: calc(7.2rem + 1.6rem);
+}
+
+/*============ LAYOUT ============*/
+.container{ 
+    margin-left: 2.4rem;
+    margin-right: 2.4rem;
+}
+
+.grid{
+    display: grid;
+    gap: 3.2rem;
+}
+
+.section{
+    padding: calc(5rem + var(--header-height)) 0;
+}
+
+.section .title{
+    margin-bottom: 1.6rem;
+}
+
+.section .subtitle{
+    font-size: var(--subtitle-font-size);
+}
+
+.section header{
+    margin-bottom: 6.4rem;
+}
+
+.section header strong{
+    color: var(--base-color);
+}
+
+/* ****** HOME ******** */
+#home{
+    overflow: hidden; /*a imagem estava transbordando, então se aplicou o overflow*/
+}
+
+#home .container{
+    margin: 0;
+}
+
+#home .image{
+    position: relative;
+}
+
+#home .image::before{
+    content: "";
+    height: 100%;
+    width: 100%;
+    background: var(--base-color-second);
+    position: absolute;
+    top: -16.8%;
+    left: 16.7%;
+}
+
+#home .image img{
+    position: relative;
+    right: 4.5rem;
+}
+
+#home .image::before,
+#home .image img{
+    border-radius: 0.4rem;
+}
+
+#home .text{
+    margin-left: 2.4rem;
+    margin-right: 2.4rem;
+    text-align: center;
+}
+
+#home .text h2{
+    margin-bottom: 3.2rem;
+}
+
+#home .text p{
+    margin-bottom: 1rem;
+}
+
+.button{
+    display: inline-flex; /*esse display é melhor para ser usado em tags "a"*/
+    background: var(--base-color);
+    color: var(--text-color-light);
+    height: 5.6rem;
+    align-items: center;
+    padding: 0 3.2rem;
+    border-radius: 0.4rem;
+    font: 500 1.6rem var(--body-font);
+    transition: background 0.3s;
+}
+
+.button:hover{
+    background: var(--base-color-alt);
+}
+
+.devider-1{
+    height: 1px;
+    background: linear-gradient(270deg, #f05638 0%,
+     rgba(204, 244, 230, 0.34) 100%);
+}
+
+
+/* ***********ABOUT************/
+#about{
+    overflow: hidden; /*a imagem estava transbordando, então se aplicou o overflow*/
+}
+
+#about .container{
+    margin: 0;
+}
+
+#about .image{
+    position: relative;
+}
+
+#about .image::before{
+    content: "";
+    height: 100%;
+    width: 100%;
+    background: var(--base-color-second);
+    position: absolute;
+    top: -8.3%;
+    left: -33%;
+}
+
+#about .image img{
+    position: relative;
+    right: 4.5rem;
+}
+
+#about .image::before,
+#about .image img{
+    border-radius: 0.4rem;
+}
+
+#about .text{
+    margin-left: 2.4rem;
+    margin-right: 2.4rem;
+    /* text-align: center; */
+}
+
+#about .text h2{
+    margin-top: 1.6rem;
+}
+
+#about .text p{
+    margin-bottom: 1rem;
+}
+
+.devider-2{
+    height: 1px;
+    background: linear-gradient(270deg,rgba(204, 244, 230, 0.34) ,
+    #f05638 ); /*esse devider-2 faz o gradiente inverso ao primeiro*/
+}
+
+/********** SERVICES ***********/
+.cards.grid{
+    gap: 2.4rem;
+}
+
+.card{
+    padding: 0 0 3.2rem 0;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.08);
+    border-bottom: 0.4rem solid var(--base-color);
+    border-radius: 0.4rem 0.4rem 0 0;
+    text-align: center;
+}
+
+.card img{
+    display: block;
+    margin-bottom: 2.4rem;
+    font-size: 8rem;
+    color: var(--base-color);
+    height: 15.625rem;
+    width: 100%;
+}
+
+/*********** TESTIMONIALS ************/
+#testimonials{
+    background: white;
+}
+
+#testimonials .container{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#testimonials header{
+    margin-left: 2.4rem;
+    margin-right: 2.4rem;
+    margin-bottom: 0;
+}
+
+#testimonials blockquote{
+    padding: 3.2rem;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 0.4rem;
+}
+
+#testimonials blockquote p{
+    position: relative;
+    text-indent: 3rem;
+    margin-bottom: 2.4rem;
+}
+
+#testimonials blockquote p span{
+    font: 700 4.8rem serif;
+
+    position: absolute;
+    top: -1rem;
+    left: -3rem;
+    color: var(--base-color);
+}
+
+#testimonials cite {
+    display: flex;
+    align-items: center;
+    font-style: normal;
+    /* gap: 1rem; */
+}
+
+#testimonials cite img {
+    width: 4rem;
+    height: 4rem;
+    object-fit: cover;
+    clip-path: circle();
+    margin-right: 0.8rem;
+    /* border-radius: 50%; */
+}
+
+.swiper-slide{
+    height: auto;
+    padding: 6.4rem 1rem;
+}
+
+.swiper-pagination-bullet-active{
+    background: var(--base-color);
+}
+
+/********** CONTACT **********/
+#contact .grid{
+    gap: 6.4rem;
+}
+
+#contact .text p{
+    margin-bottom: 3.2rem;
+}
+
+#contact .button i,
+#contact ul li i {
+    font-size: 2.4rem;
+    margin-right: 1rem;
+}
+
+#contact ul.grid{
+    gap: 3.2rem;
+}
+
+#contact ul li{
+    display: flex;
+    align-items: center;
+}
+
+#contact ul li i{
+    color: var(--base-color);
+}
+
+/******* FOOTER *********/
+footer{
+    background: var(--base-color);
+}
+
+footer.section{
+    padding: 6.4rem 0;
+}
+
+footer .logo{
+    /* tava tendo problemas para colocar margin-bottom, pois a logo é uma tag a, e tem display inline, não deixando aplicar o margin, mas com o inline-block dá pra fazer isso */
+    display: inline-block;
+    margin-bottom: 2.4rem;
+}
+
+footer .brand p{
+    color: var(--text-color-light);
+    margin-bottom: 1.2rem;
+}
+
+footer .social a i{
+    display: inline-block; /*tive que fazer o display inline-block, já que só o inline não permite colocar o transforme*/
+    color: var(--text-color-light);
+    margin-right: 2.4rem;
+    font-size: 2.4rem;
+    transform: translateY(0);
+    transition: 0.3s;
+}
+
+footer .social a i:hover{
+    transform: translateY(-5px)
+}
+
+/* ******* BACK-TO-TOP *********/
+.back-to-top{
+    background: var(--base-color);
+    color: var(--text-color-light);
+
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+
+    padding: 0.5rem;
+    clip-path: circle();
+    font-size: 2.4rem;
+
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s;
+    transform: translateY(100%);
+}
+
+.back-to-top.show{
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/*********** MEDIA QUERIES *********/
+
+@media (min-width: 1200px){
+    .container{
+        max-width: 1120px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .section{
+        padding: 16rem 0;
+    }
+
+    .section header,
+    #testimonials header {
+        max-width: 51.2rem;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .button{
+        height: 5rem;
+    }
+
+    nav .menu{
+        opacity: 1;
+        visibility: visible;
+        top: 0;
+    }
+
+    nav .menu ul{
+        display: flex;
+        gap: 3.2rem;
+    }
+
+    nav .menu ul li a.title{
+        font: 400 1.6rem var(--body-font);
+    }
+
+    nav .icon-menu{
+        display: none;
+    }
+
+    #home .container{
+        grid-auto-flow: column;
+        justify-content: space-between;
+        margin: 0 auto;
+    }
+
+    #home .image{
+        order: 1;
+    }
+
+    #home .text{
+        order: 0;
+        max-width: 38rem;
+        text-align: left;
+    }
+
+    #about .container{
+        margin: 0 auto;
+        grid-auto-flow: column;
+    }
+
+    .cards{
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    .card{
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
+    #testimonials .container{
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #contact .container{
+        grid-auto-flow: column;
+        align-items: center;
+    }
+
+    #contact .text{
+        max-width: 40rem;
+    }
+
+    footer.section{
+        padding: 6rem 0;
+    }
+
+    footer .container{
+        grid-auto-flow: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    main{
+        margin-top: var(--header-height);
+    }
+}
+
+@media (min-width: 992px){
+    :root{
+        --title-font-size: 3.5rem;
+        --subtitle-font-size: 1.8rem;
+    }
+}
